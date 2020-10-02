@@ -1,0 +1,23 @@
+version: "3"
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    stdin_open: true
+    tty: true
+
+
+  backend:
+    restart: always
+    container_name: backend
+    build: ./backend
+    expose:
+      - 5000
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=endpoints.py
+      - FLASK_DEBUG=1

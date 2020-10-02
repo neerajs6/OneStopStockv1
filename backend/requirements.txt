@@ -1,0 +1,8 @@
+flask
+jwt
+flask_cors
+requests
+pymongo
+bson
+passlib
+marshmallow
