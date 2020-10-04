@@ -13,6 +13,8 @@ import About from '../About';
 import Login from '../Login';
 import Account from '../Account';
 import AccountSettings from '../AccountSettings';
+import LogRocket from 'logrocket';
+LogRocket.init('2sczr2/onestopstock');
 
 
 
