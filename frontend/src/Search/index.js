@@ -16,10 +16,13 @@ const useStyles = makeStyles((theme) => ({
             width: '90%'
         },
         width: '80%',
-        paddingBottom: '20px',
-        fontSize:"36px",
+        marginBottom: '20px',
         position: 'fixed',
         backgroundColor: 'white'
+    },
+    searchFieldProps: {
+        fontSize:"34px",
+        fontFamily: 'Airbnb Cereal App Light',
     },
     container: {
         height: '100vh',
@@ -129,7 +132,14 @@ export default function Search() {
                 Search for a stock by the name of the organization or by the ticker symbol (e.g. "Apple Inc" or "AAPL"). 
                 Click on the organization name to see their stock data
             </Typography> */}
-            <TextField id="stock-search" label="Enter a Company Name or Stock Symbol" className={classes.searchField} onChange={onChange} />
+            <TextField id="stock-search" label="Enter a Company Name or Stock Symbol" 
+            className={classes.searchField}
+            InputProps={{
+                classes: {
+                    input: classes.searchFieldProps
+                }
+            }}
+            onChange={onChange} />
 
             <div className={classes.results}>
             {filteredStocks.map((stock, key) => {

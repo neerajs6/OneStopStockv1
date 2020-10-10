@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Container, List, ListItem, ListItemText, Switch, Dialog, 
-  DialogActions, DialogContent, Button, DialogContentText, DialogTitle } from '@material-ui/core'
+  DialogActions, DialogContent, Button, DialogContentText, DialogTitle,
+  FormControl, FormLabel, RadioGroup, Radio, FormControlLabel } from '@material-ui/core'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import React, { useState, useEffect } from 'react';
 import StockTable from '../StockTable';
@@ -69,6 +70,17 @@ const articles = [
     'Teach Yourself Finance',
 ];
 
+const today = new Date();
+
+
+const timeframe_filter = {
+  "1day": ["day", 1],
+  "1week": ["day", 7],
+  "1month": ["month", 1], 
+  "6month": ["month", 6],
+  "1year": ["month", 12],
+}
+
 const apiClient = new APIClient();
 
 export default function StockGridDesktop(){
@@ -79,17 +91,21 @@ export default function StockGridDesktop(){
 
   const { symbol } = useParams(); 
   const [stockData, setStockData] = useState([]);
+  const [filteredStockData, setFilteredStockData] = useState([]);
 
   const [dialog, setDialogOpen] = useState(false);
 
   const Graph = graph ? "strongBuy" : "strongSell";
+
+  const [timeframe, setTimeframe] = useState('1year');
   
   useEffect(() => {
     const apiClient = new APIClient();
     apiClient.getStockData(symbol).then((data) =>{
-      const d = data.map((entry) => getFilteredData(entry, 'period', 'buy'));
-      console.log(d);
+      data = data.map((entry) => createDate(entry));
+
       setStockData(data.reverse());
+      setFilteredStockData(data.reverse());
       apiClient.isFavorite(symbol, localStorage.getItem("id")).then((fav) => {
         console.log(fav)
         if (fav.comment === "is_favorite") {
@@ -103,8 +119,9 @@ export default function StockGridDesktop(){
 
     });}, [])
 
-  function getFilteredData(data, x, y) {
-    return {"x": new Date(data[x]), "y": data[y]}
+  function createDate(data) {
+    return {"buy": data['buy'], "hold": data['hold'], "period": new Date(data['period']), "sell": data['sell'], "strongBuy": data['strongBuy'], "strongSell": data['strongSell'], "symbol": data['symbol']}
+
   }
 
   function clickFavorite() {
@@ -131,6 +148,26 @@ export default function StockGridDesktop(){
       setDialogOpen(false);
     };
 
+    const handleChange = (event) => {
+      setTimeframe(event.target.value);
+      const unit = timeframe_filter[event.target.value][0]
+      const value = timeframe_filter[event.target.value][1]
+      var start = null;
+      if (unit === "day") {
+        start = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDay() - value, 0, 0, 0, 0)
+      }
+      if (unit === "month") {
+        start = new Date(today.getUTCFullYear(), today.getUTCMonth() - value, today.getUTCDay(), 0, 0, 0, 0)
+
+      }
+      var filterStock = stockData.filter((stock) => {
+          return stock['period'] > start
+      })
+
+      setFilteredStockData(filterStock);
+
+    };
+
 
 
   return (
@@ -138,7 +175,17 @@ export default function StockGridDesktop(){
         <Paper className={classes.sidebar} >
           <h1>{symbol}</h1>
           <Icon onClick={clickFavorite} className={classes.icon}/>
-
+          <br></br>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Timeframe</FormLabel>
+            <RadioGroup aria-label="timeframe" name="timeframe" value={timeframe} onChange={handleChange}>
+              <FormControlLabel value="1day" control={<Radio />} label="1 Day" />
+              <FormControlLabel value="1week" control={<Radio />} label="1 Week" />
+              <FormControlLabel value="1month" control={<Radio />} label="1 Month" />
+              <FormControlLabel value="6month" control={<Radio />} label="6 Months" />
+              <FormControlLabel value="1year" control={<Radio />} label="1 Year" />
+            </RadioGroup>
+          </FormControl>
         </Paper>
         <Dialog
             open={dialog}
@@ -176,7 +223,7 @@ export default function StockGridDesktop(){
             <LineChart
                 width={300}
                 height={300}
-                data={stockData}
+                data={filteredStockData}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="period" />
@@ -195,7 +242,7 @@ export default function StockGridDesktop(){
               <LineChart
                 width={300}
                 height={300}
-                data={stockData}
+                data={filteredStockData}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="period" />
