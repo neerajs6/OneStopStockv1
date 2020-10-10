@@ -3,10 +3,6 @@ from pymongo import MongoClient
 from bson import objectid
 from passlib.hash import pbkdf2_sha256
 
-
-
-
-
 COLLECTION_NAME = 'one_stop_stock'
 
 DB_URI = "mongodb+srv://stock_app_local_dev:zHJlRyaHcYusbnGC@cluster0.wlexg.mongodb.net/one_stop_stock?retryWrites=true&w=majority"

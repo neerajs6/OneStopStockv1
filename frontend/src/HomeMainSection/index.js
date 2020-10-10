@@ -77,7 +77,7 @@ export default function HomeMainSection(){
             </Grid> */}
             <Container className={classes.container}>
                 <div className={ classes.header }>
-                    <Bounce><h1>Welcome to One Stop Stock</h1></Bounce>
+                    <Bounce><h1>Welcome to One Stop Stock?</h1></Bounce>
                 </div>
             </Container>
             

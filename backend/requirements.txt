@@ -1,8 +1,7 @@
 flask
-jwt
+pyjwt
 flask_cors
 requests
 pymongo
-bson
 passlib
 marshmallow
