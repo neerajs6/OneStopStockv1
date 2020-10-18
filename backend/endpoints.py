@@ -4,10 +4,16 @@ from flask_cors import CORS, cross_origin
 import requests
 from .database.schema import UserSchema
 from .database.service import Service as User
-
+import tweepy
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app)
+
+CONSUMER_KEY = "WbC0UBmsO0N2CzGkRPf8Dsfes"
+CONSUMER_SECRET = "ykrFGg9vdC6UPedkCmdbyW64047oJc7L4o8YiHazcr8uvtQs0m"
+ACCESS_TOKEN = "1309643730287116290-VykZPSeg2dmFHhXxiIzmKeEFxGmRoa"
+ACCESS_TOKEN_SECRET = "43dTVkYNgNsDJSaPMmi7FuPCwggxjw0fcj8oALuVPflyA"
 
 @app.route("/stocks/<string:stock_name>", methods=["GET"])
 @cross_origin(origin='*')
@@ -84,8 +90,33 @@ def delete_user():
     return result
     
 
+@app.route("/tweets/<string:company>", methods=["GET"])
+@cross_origin(origin='*')
+def get_tweets_for_symbol(company):
+    print(company)
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    api = tweepy.API(auth,wait_on_rate_limit=True)
 
+    text_query = company
+    count = 15
+    try:
+        # Creation of query method using parameters
+        tweets = tweepy.Cursor(api.search,q=text_query).items(count)
+        
+        # Pulling information from tweets iterable object
+        tweets_list = [[tweet.created_at, tweet.id, tweet.text] for tweet in tweets]
+        
+        # Creation of dataframe from tweets list
+        # Add or remove columns as you remove tweet information
+        tweets_df = pd.DataFrame(tweets_list)
 
+        print(tweets_df)
+
+        return tweets_df.to_json()
+    
+    except BaseException as e:
+        print('failed on_status,',str(e))
 
 
 
