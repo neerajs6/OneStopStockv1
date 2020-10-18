@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '60px',
         padding: '0px 10px',
         width: mainContentWidth
+    },
+    tweet: {
+      fontFamily: 'Airbnb Cereal App Light'
     }
   }));
  
@@ -95,8 +98,12 @@ export default function StockGridDesktop(){
 
   const [stockData, setStockData] = useState([]);
   const [filteredStockData, setFilteredStockData] = useState([]);
+  const [tweets, setTweets] = useState([]);
+  const [loadedTweets, setLoadedTweets] = useState(false);
 
   const [dialog, setDialogOpen] = useState(false);
+
+
 
   const Graph = graph ? "strongBuy" : "strongSell";
 
@@ -123,7 +130,8 @@ export default function StockGridDesktop(){
           setFavorite(false);
         }
         apiClient.getTweetsFromSymbol(symbolName, companyName).then((res) => {
-          console.log(res);
+          setTweets(Object.values(res[2]));
+          setLoadedTweets(true);
         })
 
       })
@@ -279,6 +287,34 @@ export default function StockGridDesktop(){
             </Paper>
             <hr className={classes.solidBorder}/>
         </Grid>
+
+        {!loadedTweets ? (
+
+        <h3>Loading tweets..</h3>
+
+        ) : (
+          <Grid item xs={12}>
+          <Paper className={classes.paper} elevation={0}>
+              <h3>What Twitter is saying...</h3>
+              <List>
+              {tweets.map((tweet, key) => {
+              return (
+                      <ListItem key={key}>
+                          <ListItemText >
+
+                              <span className={classes.tweet}>{tweet}</span>
+                                
+                              
+                            </ListItemText>
+                      </ListItem>
+                  );
+              })}
+              </List>
+          </Paper>
+        </Grid>
+
+        )}
+
 
         <Grid item xs={12}>
           <Paper className={classes.paper} elevation={0}>
