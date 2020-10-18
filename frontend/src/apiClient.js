@@ -12,7 +12,9 @@ class APIClient {
    this.accessToken = '50';
  }
 
- getStockData(symbol) {
+ getStockData(symbolName) {
+   var symbol = symbolName.split("&")[0];
+   console.log(symbol);
    return this.perform('get', `/stocks/${symbol}`, symbol);
  }
 
@@ -92,6 +94,15 @@ deleteAccount(id) {
     "id":id
   }
   return this.perform('post', '/delete_user', payload)
+}
+
+getTweetsFromSymbol(symbol, companyName) {
+  const payload = {
+    "symbol":symbol,
+    "companyName":companyName
+  }
+  console.log(payload);
+  return this.perform('get', `/tweets/${companyName}`, payload)
 }
 
 

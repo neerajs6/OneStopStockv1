@@ -46,12 +46,6 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-//   const theme = createMuiTheme({
-//       overrides: {
-//           Mui
-//       }
-
-//   });
 
   const topCompanies = [
       {symbol:"AAPL", company:"APPLE INC"},
@@ -145,7 +139,7 @@ export default function Search() {
             {filteredStocks.map((stock, key) => {
                 return (
                     <div key={key} >
-                        <Typography component={Link} to={`/stocks/${stock.symbol}`} className={classes.stockSearch} variant="h4">
+                        <Typography component={Link} to={`/stocks/${stock.symbol}&${stock.company}`} className={classes.stockSearch} variant="h4">
                             {stock.company}
                         </Typography>
 

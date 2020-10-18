@@ -88,8 +88,11 @@ export default function StockGridDesktop(){
   const [graph, setGraph] = useState(true);
   const [favorite, setFavorite] = useState(false)
   const Icon = favorite ? FavoriteIcon : FavoriteBorderIcon
+  
+  const { symbol } = useParams();
+  const [symbolName, setSymbol] = useState(splitParams(0));
+  const [companyName, setCompanyName] = useState(splitParams(1));
 
-  const { symbol } = useParams(); 
   const [stockData, setStockData] = useState([]);
   const [filteredStockData, setFilteredStockData] = useState([]);
 
@@ -98,15 +101,20 @@ export default function StockGridDesktop(){
   const Graph = graph ? "strongBuy" : "strongSell";
 
   const [timeframe, setTimeframe] = useState('1year');
+
+  function splitParams(idx) {
+    console.log("hello " + symbol)
+    return String(symbol).split("&")[idx];
+  }
   
   useEffect(() => {
     const apiClient = new APIClient();
-    apiClient.getStockData(symbol).then((data) =>{
+    apiClient.getStockData(symbolName).then((data) =>{
       data = data.map((entry) => createDate(entry));
 
       setStockData(data.reverse());
       setFilteredStockData(data.reverse());
-      apiClient.isFavorite(symbol, localStorage.getItem("id")).then((fav) => {
+      apiClient.isFavorite(symbolName, localStorage.getItem("id")).then((fav) => {
         console.log(fav)
         if (fav.comment === "is_favorite") {
           setFavorite(true)
@@ -114,6 +122,9 @@ export default function StockGridDesktop(){
         else {
           setFavorite(false);
         }
+        apiClient.getTweetsFromSymbol(symbolName, companyName).then((res) => {
+          console.log(res);
+        })
 
       })
 
@@ -173,7 +184,8 @@ export default function StockGridDesktop(){
   return (
       <Container maxWidth="lg" className={classes.root}> 
         <Paper className={classes.sidebar} >
-          <h1>{symbol}</h1>
+          <h1>{symbolName}</h1>
+          <h2>{companyName}</h2>
           <Icon onClick={clickFavorite} className={classes.icon}/>
           <br></br>
           <FormControl component="fieldset">
