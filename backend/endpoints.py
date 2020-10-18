@@ -6,6 +6,7 @@ from .database.schema import UserSchema
 from .database.service import Service as User
 import tweepy
 import pandas as pd
+import twint
 
 app = Flask(__name__)
 CORS(app)
@@ -94,6 +95,7 @@ def delete_user():
 @cross_origin(origin='*')
 def get_tweets_for_symbol(company):
     print(company)
+
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth,wait_on_rate_limit=True)
@@ -102,10 +104,10 @@ def get_tweets_for_symbol(company):
     count = 15
     try:
         # Creation of query method using parameters
-        tweets = tweepy.Cursor(api.search,q=text_query).items(count)
+        tweets = tweepy.Cursor(api.search,q=text_query, result_type="popular", lang="en", tweet_mode="extended").items(count)
         
         # Pulling information from tweets iterable object
-        tweets_list = [[tweet.created_at, tweet.id, tweet.text] for tweet in tweets]
+        tweets_list = [[tweet.created_at, tweet.id, tweet.full_text] for tweet in tweets]
         
         # Creation of dataframe from tweets list
         # Add or remove columns as you remove tweet information
