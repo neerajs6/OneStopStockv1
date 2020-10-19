@@ -15,6 +15,7 @@ CONSUMER_KEY = "WbC0UBmsO0N2CzGkRPf8Dsfes"
 CONSUMER_SECRET = "ykrFGg9vdC6UPedkCmdbyW64047oJc7L4o8YiHazcr8uvtQs0m"
 ACCESS_TOKEN = "1309643730287116290-VykZPSeg2dmFHhXxiIzmKeEFxGmRoa"
 ACCESS_TOKEN_SECRET = "43dTVkYNgNsDJSaPMmi7FuPCwggxjw0fcj8oALuVPflyA"
+BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAGuhIwEAAAAA3GeIK6TLZTEnVnLwtNiu0nvKl7s%3DkIuUgwN7ogKrbLKjTXqhVlMgUYYJjCtTN9Ny6cN5PxA1BRwR41"
 
 @app.route("/stocks/<string:stock_name>", methods=["GET"])
 @cross_origin(origin='*')
@@ -105,7 +106,7 @@ def get_tweets_for_symbol(company):
     try:
         # Creation of query method using parameters
         tweets = tweepy.Cursor(api.search,q=text_query, result_type="popular", lang="en", tweet_mode="extended").items(count)
-        
+
         # Pulling information from tweets iterable object
         tweets_list = [[tweet.created_at, tweet.id, tweet.full_text] for tweet in tweets]
         
@@ -113,7 +114,6 @@ def get_tweets_for_symbol(company):
         # Add or remove columns as you remove tweet information
         tweets_df = pd.DataFrame(tweets_list)
 
-        print(tweets_df)
 
         return tweets_df.to_json()
     
