@@ -62,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
     },
     tweet: {
       fontFamily: 'Airbnb Cereal App Light'
+    },
+    button: {
+      fontFamily: 'Airbnb Cereal App Light'
     }
   }));
  
@@ -193,17 +196,36 @@ export default function StockGridDesktop(){
       <Container maxWidth="lg" className={classes.root}> 
         <Paper className={classes.sidebar} >
           <h1>{symbolName}</h1>
-          <h2>{companyName}</h2>
+
           <Icon onClick={clickFavorite} className={classes.icon}/>
           <br></br>
           <FormControl component="fieldset">
-            <FormLabel component="legend">Timeframe</FormLabel>
+            <FormLabel component="legend"><span style={{ fontFamily: 'Airbnb Cereal App Light' }}>Timeframe</span></FormLabel>
             <RadioGroup aria-label="timeframe" name="timeframe" value={timeframe} onChange={handleChange}>
-              <FormControlLabel value="1day" control={<Radio />} label="1 Day" />
-              <FormControlLabel value="1week" control={<Radio />} label="1 Week" />
-              <FormControlLabel value="1month" control={<Radio />} label="1 Month" />
-              <FormControlLabel value="6month" control={<Radio />} label="6 Months" />
-              <FormControlLabel value="1year" control={<Radio />} label="1 Year" />
+              <FormControlLabel 
+              value="1day" 
+              control={<Radio />} 
+              label={<span style={{ fontFamily: 'Airbnb Cereal App Light' }}>1 Day</span>}
+              />
+              <FormControlLabel 
+              value="1week" 
+              control={<Radio />} 
+              label={<span style={{ fontFamily: 'Airbnb Cereal App Light' }}>1 Week</span>} />
+              <FormControlLabel 
+              value="1month" 
+              control={<Radio />} 
+              label={<span style={{ fontFamily: 'Airbnb Cereal App Light' }}>1 Month</span>}
+              />
+              <FormControlLabel 
+              value="6month" 
+              control={<Radio />} 
+              label={<span style={{ fontFamily: 'Airbnb Cereal App Light' }}>6 Months</span>}
+              />
+              <FormControlLabel 
+              value="1year" 
+              control={<Radio />} 
+              label={<span style={{ fontFamily: 'Airbnb Cereal App Light' }}>1 Year</span>}
+              />
             </RadioGroup>
           </FormControl>
         </Paper>

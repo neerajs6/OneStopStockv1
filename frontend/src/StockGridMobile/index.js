@@ -57,20 +57,31 @@ export default function StockGridMobile(){
   const [favorite, setFavorite] = useState(false)
   const Icon = favorite ? FavoriteIcon : FavoriteBorderIcon
 
-  const { symbol } = useParams(); 
+  const { symbol } = useParams();
+  const [symbolName, setSymbol] = useState(splitParams(0));
+  const [companyName, setCompanyName] = useState(splitParams(1));
+
   const [stockData, setStockData] = useState([]);
 
   const [dialog, setDialogOpen] = useState(false);
+  const [tweets, setTweets] = useState([]);
+  const [loadedTweets, setLoadedTweets] = useState(false);
 
   const Graph = graph ? "strongBuy" : "strongSell";
+
+  function splitParams(idx) {
+    console.log("hello " + symbol)
+    return String(symbol).split("&")[idx];
+  }
   
   useEffect(() => {
     const apiClient = new APIClient();
-    apiClient.getStockData(symbol).then((data) =>{
-      const d = data.map((entry) => getFilteredData(entry, 'period', 'buy'));
-      console.log(d);
+    apiClient.getStockData(symbolName).then((data) =>{
+      data = data.map((entry) => createDate(entry));
+
       setStockData(data.reverse());
-      apiClient.isFavorite(symbol, localStorage.getItem("id")).then((fav) => {
+
+      apiClient.isFavorite(symbolName, localStorage.getItem("id")).then((fav) => {
         console.log(fav)
         if (fav.comment === "is_favorite") {
           setFavorite(true)
@@ -78,10 +89,19 @@ export default function StockGridMobile(){
         else {
           setFavorite(false);
         }
+        apiClient.getTweetsFromSymbol(symbolName, companyName).then((res) => {
+          setTweets(Object.values(res[2]));
+          setLoadedTweets(true);
+        })
 
       })
 
     });}, [])
+
+    function createDate(data) {
+      return {"buy": data['buy'], "hold": data['hold'], "period": new Date(data['period']), "sell": data['sell'], "strongBuy": data['strongBuy'], "strongSell": data['strongSell'], "symbol": data['symbol']}
+  
+    }
 
   function getFilteredData(data, x, y) {
     return {"x": new Date(data[x]), "y": data[y]}
@@ -118,7 +138,7 @@ export default function StockGridMobile(){
       <Grid container spacing={3} alignItems={'center'} justify={'center'}>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper} elevation={0}>
-              <h1>{symbol}</h1>
+              <h1>{symbolName}</h1>
               <Icon onClick={clickFavorite} className={classes.icon}/>
               {/* Add favorite count to this, will need to query how many unique users have favorite this stock, then 
               can display the number next to the heart (will need to do a plus one if the user favorites it and 
@@ -200,6 +220,33 @@ export default function StockGridMobile(){
             </Paper>
             <hr className={classes.solidBorder}/>
         </Grid>
+
+          {!loadedTweets ? (
+
+          <h3>Loading tweets..</h3>
+
+          ) : (
+            <Grid item xs={12}>
+            <Paper className={classes.paper} elevation={0}>
+                <h3>What Twitter is saying...</h3>
+                <List>
+                {tweets.map((tweet, key) => {
+                return (
+                        <ListItem key={key}>
+                            <ListItemText >
+
+                                <span className={classes.tweet}>{tweet}</span>
+                                  
+                                
+                              </ListItemText>
+                        </ListItem>
+                    );
+                })}
+                </List>
+            </Paper>
+          </Grid>
+
+          )}
 
         <Grid item xs={12}>
           <Paper className={classes.paper} elevation={0}>
