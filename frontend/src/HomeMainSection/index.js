@@ -3,6 +3,7 @@ import {  Container} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { fadeIn } from 'react-animations';
 import styled, { keyframes } from 'styled-components';
+import Typist from 'react-typist';
 
 
 const FadeIn = styled.div`animation: 5s ${keyframes`${fadeIn}`} `;
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
             maxHeight: 'auto',
             maxWidth: '90%',
         },
-        fontFamily: 'Airbnb Cereal App Bold',
+        fontFamily: 'Airbnb Cereal App Light',
         
       
     },
@@ -77,7 +78,9 @@ export default function HomeMainSection(){
             </Grid> */}
             <Container className={classes.container}>
                 <div className={ classes.header }>
-                    <FadeIn><h1>Welcome to One Stop Stock</h1></FadeIn>
+                    <Typist
+                    cursor={{ hideWhenDone: true }}>
+                        <h1>Welcome to One Stop Stock</h1></Typist>
                 </div>
             </Container>
             
