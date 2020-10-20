@@ -104,21 +104,15 @@ def get_tweets_for_symbol(company):
     text_query = company
     count = 15
     try:
-        # Creation of query method using parameters
         tweets = tweepy.Cursor(api.search,q=text_query, result_type="popular", lang="en", tweet_mode="extended").items(count)
 
-        # Pulling information from tweets iterable object
         tweets_list = [[tweet.created_at, tweet.id, tweet.full_text] for tweet in tweets]
-        
-        # Creation of dataframe from tweets list
-        # Add or remove columns as you remove tweet information
+
         tweets_df = pd.DataFrame(tweets_list)
-
-
         return tweets_df.to_json()
     
     except BaseException as e:
-        print('failed on_status,',str(e))
+        return {"status":"couldn't load tweets"}
 
 
 
