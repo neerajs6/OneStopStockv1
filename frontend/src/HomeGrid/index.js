@@ -78,6 +78,13 @@ const useStyles = makeStyles((theme) => ({
             <Grid item xs={12} sm={8}>
             <img src={f1} alt="finance" className={classes.image}/>
             </Grid>
+            <Grid item md={6} xs={0} />
+            <Grid item xs={6}>
+              <h2>And how are we going to make it understandable?</h2>
+              <p >
+                What we've put together is a One Stop Shop (get it?) for investors with little to no experience to learn about the basics of investing with a platform to find digestible information about any stocks they may want to search up. 
+              </p>
+            </Grid>
           
 
           

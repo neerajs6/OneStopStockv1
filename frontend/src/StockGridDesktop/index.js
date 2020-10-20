@@ -8,6 +8,7 @@ import StockTable from '../StockTable';
 import { useParams, Link } from 'react-router-dom';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { FixedSizeList } from 'react-window';
 
 import APIClient from '../apiClient'
 
@@ -318,6 +319,7 @@ export default function StockGridDesktop(){
           <Grid item xs={12}>
           <Paper className={classes.paper} elevation={0}>
               <h3>What Twitter is saying...</h3>
+
               <List>
               {tweets.map((tweet, key) => {
               return (

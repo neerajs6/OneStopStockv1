@@ -5,7 +5,7 @@ import { fadeIn } from 'react-animations';
 import styled, { keyframes } from 'styled-components';
 
 
-const Bounce = styled.div`animation: 5s ${keyframes`${fadeIn}`} `;
+const FadeIn = styled.div`animation: 5s ${keyframes`${fadeIn}`} `;
 
 
 
@@ -77,7 +77,7 @@ export default function HomeMainSection(){
             </Grid> */}
             <Container className={classes.container}>
                 <div className={ classes.header }>
-                    <Bounce><h1>Welcome to One Stop Stock?</h1></Bounce>
+                    <FadeIn><h1>Welcome to One Stop Stock</h1></FadeIn>
                 </div>
             </Container>
             
