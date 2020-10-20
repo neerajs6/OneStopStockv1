@@ -8,6 +8,7 @@ import ShareIcon from '@material-ui/icons/Share';
 
 import hero from '../static/img/about-us-hero.jpg';
 import sam from '../static/img/about-us-cardholder.jpeg';
+import avatar from '../static/img/img_avatar.png'
 
 
 
@@ -46,7 +47,15 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '44px'
     },
     aboutp: {
-        fontSize: '36px'
+        fontSize: '24px'
+    },
+    linkedin: {
+        textDecoration: 'underline',
+        color: 'black'
+    },
+    avatarPhoto: {
+        borderRadius: '50%',
+        width: '80%'
     }
   }));
 
@@ -56,81 +65,27 @@ export default function About() {
     return (
         <div className={classes.root}>
         <Container >
-            <img src={hero} className={ classes.hero } alt="hero"/>
+
             <Grid container spacing={12}>
                 <Grid item xs={0} sm={1} />
                 <Grid item xs={12} sm={4}>
-                    <h1 className={ classes.aboutH1}>About Us</h1>
+                    <img src={avatar} className={classes.avatarPhoto} alt="avatar" />
+                    <h1 className={ classes.aboutH1}>Neeraj Sudhakar</h1>
                     <p className={ classes.aboutp}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...
+                        Neeraj is a current senior at Northeastern University pursuing a BS in Chemical Engineering and a MS in Engineering/Industrial Management. He is passionate about all things investment with experience working at companies like Wealth Planning Advisory Group, Vertex Pharmaceuticals, and Mersana Therapeutics. His motivation for founding One Stop Stock was due to a lack of digestible information across the internet when it comes to investing. 
                     </p>
+                    <p>Feel free to connect with Sam on <a className={classes.linkedin} target="_blank" href="https://www.linkedin.com/in/neerajsudhakar/">LinkedIn</a></p>
                 </Grid>
                 <Grid item xs={0} sm={2} />
                 <Grid item xs={12} sm={4}>
-                    <h1 className={ classes.aboutH1}> The Mission</h1>
+                    <img src={avatar} className={classes.avatarPhoto} alt="avatar" />
+                    <h1 className={ classes.aboutH1}>Sam Merkovitz</h1>
                     <p className={ classes.aboutp}> 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...
+                        Sam Merkovitz is a current senior at Northeastern University pursuing a BS in Computer Science and Philosophy. He loves finding ways to tackle new problems by finding solutions that help the everyday person. He has experience as a full stack web developer and a backend engineer. As the lead Web Developer on this site, he hopes that it serves as an easy-to-use, intuitive resource for those looking to get into investing. 
                     </p>
+                    <p>Feel free to connect with Sam on <a className={classes.linkedin} target="_blank" href="https://www.linkedin.com/in/sam-merkovitz">LinkedIn</a></p>
                 </Grid>
                 <Grid item xs={0} sm={1} />
-            </Grid>
-            <Grid container spacing={8} className={classes.cards}>
-                <Grid item xs={0} sm={1} />
-                <Grid item xs={12} sm={4}>
-                    <Card className={ classes.card }>
-                        <CardMedia        
-                        className={classes.media}
-                        image={sam}
-                        title="Sam" />
-                        <CardContent>
-                            <h3>
-                                 Neeraj Sudhakar
-                            </h3>
-                            <p>
-                                This impressive paella is a perfect party dish and a fun meal to cook together with your
-                                guests. Add 1 cup of frozen peas along with the mussels, if you like.
-                            </p>
-                         </CardContent>
-                            <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                             </IconButton>
-                            <IconButton aria-label="share">
-                                <ShareIcon />
-                            </IconButton>
-                        </CardActions>
-                    </Card>
-                </Grid>
-                <Grid item xs={0} sm={2} />
-                <Grid item xs={12} sm={4}>
-                    <Card className={ classes.card }>
-                        <CardMedia        
-                        className={classes.media}
-                        image={sam}
-                        title="Sam" />
-
-                        <CardContent>
-                            <h3>
-                                 Sam Merkovitz
-                            </h3>
-                            <p>
-                                This impressive paella is a perfect party dish and a fun meal to cook together with your
-                                guests. Add 1 cup of frozen peas along with the mussels, if you like.
-                            </p>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                             </IconButton>
-                            <IconButton aria-label="share">
-                                <ShareIcon />
-                            </IconButton>
-                        </CardActions>
-                    </Card>
-
-                </Grid>
-                <Grid item xs={0} sm={1} />
-                
             </Grid>
 
         </Container>

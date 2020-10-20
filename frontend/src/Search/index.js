@@ -126,7 +126,8 @@ export default function Search() {
                 Search for a stock by the name of the organization or by the ticker symbol (e.g. "Apple Inc" or "AAPL"). 
                 Click on the organization name to see their stock data
             </Typography> */}
-            <TextField id="stock-search" label="Enter a Company Name or Stock Symbol" 
+            <TextField id="stock-search" 
+            label={<span style={{ fontFamily: 'Airbnb Cereal App Light', fontSize: '30px' }}>Enter a Company Name or Stock Symbol</span>}
             className={classes.searchField}
             InputProps={{
                 classes: {

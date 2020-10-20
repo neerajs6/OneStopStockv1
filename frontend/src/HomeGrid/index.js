@@ -7,6 +7,7 @@ import f1 from "../static/img/finance1.jpg";
 import leftToRight from '../static/img/left-to-right-arrow.png'
 import rightToLeft from '../static/img/right-to-left-arrow.png'
 import searchGif from '../static/img/search_gif.gif'
+import favoriteGif from '../static/img/favorite_gif.gif'
 //import Footer from '../Footer';
 
 
@@ -64,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       height: 'auto',
       border: '1px solid black'
+    },
+    favoriteGif: {
+      width: '40%'
     },
     howToSearch: {
       textAlign: 'justify',
@@ -130,6 +134,15 @@ const useStyles = makeStyles((theme) => ({
             </Grid>
             <Grid item md={8} xs={12} style={{marginTop: '30px'}}>
               <img src={searchGif} alt="search gif" className={classes.searchGif}/>
+            </Grid>
+            <Grid item md={4} xs={12} style={{marginTop: '30px'}}>
+              <img src={favoriteGif} alt="search gif" className={classes.favoriteGif}/>
+            </Grid>
+            <Grid item  md={8} xs={12}>
+              <h3 className={classes.introPs}>Create a Virtual Portfolio!</h3>
+              <p className={classes.introPs}>
+                What stocks you want to look up should be specific to you! We created the functionality for you to favorite your favorite stocks. When you search for a stock, you can click the heart icon to save that stock to your profile. This way, you can view all your favorite stocks from your account page for a One Stop Shop of your stocks. 
+              </p>
             </Grid>
           
 
