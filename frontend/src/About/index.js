@@ -74,7 +74,7 @@ export default function About() {
                     <p className={ classes.aboutp}>
                         Neeraj is a current senior at Northeastern University pursuing a BS in Chemical Engineering and a MS in Engineering/Industrial Management. He is passionate about all things investment with experience working at companies like Wealth Planning Advisory Group, Vertex Pharmaceuticals, and Mersana Therapeutics. His motivation for founding One Stop Stock was due to a lack of digestible information across the internet when it comes to investing. 
                     </p>
-                    <p>Feel free to connect with Sam on <a className={classes.linkedin} target="_blank" href="https://www.linkedin.com/in/neerajsudhakar/">LinkedIn</a></p>
+                    <p>Feel free to connect with Neeraj on <a className={classes.linkedin} target="_blank" href="https://www.linkedin.com/in/neerajsudhakar/">LinkedIn</a></p>
                 </Grid>
                 <Grid item xs={0} sm={2} />
                 <Grid item xs={12} sm={4}>

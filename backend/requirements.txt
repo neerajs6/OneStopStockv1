@@ -5,3 +5,6 @@ requests
 pymongo
 passlib
 marshmallow
+tweepy
+twint
+

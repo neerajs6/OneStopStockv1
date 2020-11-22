@@ -10,6 +10,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { Link } from 'react-router-dom';
 
 import DrawerNav from '../DrawerNav';
+import OSS from '../static/img/1SSLogo.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -100,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
         <AppBar position="fixed" elevation={0}  >
           <Toolbar>
             <DrawerNav />
+            <img src={OSS} width="20px" height="20px"/>
             <Typography className={classes.title} component={Link} to="/" variant="h6" noWrap>
               One Stop Stock
             </Typography>

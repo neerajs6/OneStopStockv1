@@ -4,10 +4,11 @@ import { withStyles } from "@material-ui/core/styles";
 import { Drawer, List, ListItem, ListItemIcon, IconButton, Divider, ListItemText }from "@material-ui/core";
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+
 import { Link } from "react-router-dom";
 
 
@@ -43,13 +44,9 @@ class DrawerNav extends React.Component {
 
     };
 
-    
     this.logOut = this.logOut.bind(this)
 
   }
-
-
-
 
   toggleDrawer = (side, open) => () => {
     this.setState({
@@ -104,6 +101,32 @@ class DrawerNav extends React.Component {
             </ListItemIcon>
             <ListItemText primary="Who We Are" className={classes.text}/>
           </ListItem>
+          <Divider />
+          <ListItem
+            className={classes.item}
+          >
+          
+            <ListItemIcon>
+              <LibraryBooksIcon />
+            </ListItemIcon>
+            <ListItemText primary="Learn" className={classes.text}/>
+          </ListItem>
+          <ListItem
+            component={Link}
+            to="/who-we-are"
+            className={classes.item}
+          >
+
+            <ListItemText primary="What is a Stock?" className={classes.text}/>
+          </ListItem>
+          <ListItem
+            component={Link}
+            to="/who-we-are"
+            className={classes.item}
+          >
+            <ListItemText primary="Why Should You Invest?" className={classes.text}/>
+          </ListItem>
+
           <Divider />
           {localStorage.getItem("username") ? 
           <ListItem component={Link} to="/" onClick={this.logOut} className={classes.item}>
